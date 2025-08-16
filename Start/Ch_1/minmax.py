@@ -1,4 +1,3 @@
-# Example file for Advanced Python: Working With Data by Joe Marini
 # Demonstrates the usage of the min and max functions
 import json
 
@@ -20,3 +19,14 @@ strings = ["one", "three", "five", "seven", "eleven", "eighteen"]
 # TODO: open the data file and load the JSON
 # with open("../../30DayQuakes.json", "r") as datafile:
 #     data = json.load(datafile)
+with open("../../30DayQuakes.json","r") as datafile:
+    data = json.load(datafile)
+maglist = [(data["features"][i]["properties"]["mag"]) for i in range(0,len(data["features"]))]
+#print(maglist)
+def magfun(mags):
+    magnitude = mags["properties"]["mag"]
+    if magnitude == None :
+        magnitude = 0
+    return float(magnitude)
+print(min(data["features"],key=magfun))
+print(max(data["features"],key=magfun))
